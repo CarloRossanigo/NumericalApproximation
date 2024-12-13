@@ -3,9 +3,7 @@ close all
 format long
 
 
-% carico il file:
-% il file .txt va copiato dalla cartella col main nella cartella di
-% matlab,
+% carico il file .txt 
 File=load('test_toll10^-14');
 
  
