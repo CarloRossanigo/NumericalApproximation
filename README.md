@@ -81,13 +81,13 @@ Each project folder follows a structure like this:
 
 ```
 /NumericalApproximation
-|-- /Project1
+|-- /Project
 |   |-- relazione.pdf
 |   |-- main.cpp
 |   |-- /funzioni
 |   |   |-- newton.cpp
 |   |   |-- stampe.cpp
-|   |-- graph1.jpg
+|   |-- image.jpg
 ```
 
 - **main.cpp**: The main program file.
