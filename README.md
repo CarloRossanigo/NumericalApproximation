@@ -21,9 +21,9 @@ To compile and run the C++ code, you need a C++ compiler such as **g++** (GNU C+
 To compile the C++ code, follow these steps:
 
 1. **Navigate to the project folder** where the C++ code is located.
-   Open your terminal and use the `cd` command to go to the project directory. For example:
+   Open your terminal and use the `cd` command to go to the project directory. For istance:
    ```bash
-   cd /path/to/project_folder
+   cd /Documents/FitzHugh-Nagumo
    ```
 
 2. **Compile the C++ code** using the following command:
