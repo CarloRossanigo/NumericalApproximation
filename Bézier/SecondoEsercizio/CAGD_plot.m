@@ -1,32 +1,32 @@
 function CAGD_plot(P, p)
-    % Grafico dei punti di controllo p e della curva P
-    % Visualizza la curva di Bézier
+    % Plot control points p and Bézier curve P
+    % Display the Bézier curve
     figure();
    tiledlayout(3,1);
   nexttile
-    % Curva di Bézier
-    plot(P(:, 1), P(:, 2), 'g', 'LineWidth', 2); 
-    title('Curva di Bézier usando De Casteljau');
-    xlabel('x');
-    ylabel('y');
-    grid on;
-    axis equal;
-    
-    nexttile
-    % Visualizza il poligono di controllo
-    plot([p(:, 1); p(1, 1)], [p(:, 2); p(1, 2)], 'ro-', 'MarkerFaceColor', 'r');  % Poligono di controllo
-    
-    title('Poligono di Controllo');
+    % Bézier curve
+    plot(P(:, 1), P(:, 2), 'g', 'LineWidth', 2);
+    title('Bézier Curve using De Casteljau');
     xlabel('x');
     ylabel('y');
     grid on;
     axis equal;
 
     nexttile
-     plot(P(:, 1), P(:, 2), 'g', 'LineWidth', 2);  % Curva di Bézier
-    title('Curva di Bézier usando De Casteljau e Poligono di controllo');
+    % Display the control polygon
+    plot([p(:, 1); p(1, 1)], [p(:, 2); p(1, 2)], 'ro-', 'MarkerFaceColor', 'r');  % Control polygon
+
+    title('Control Polygon');
+    xlabel('x');
+    ylabel('y');
+    grid on;
+    axis equal;
+
+    nexttile
+     plot(P(:, 1), P(:, 2), 'g', 'LineWidth', 2);  % Bézier curve
+    title('Bézier Curve using De Casteljau and Control Polygon');
     hold on;
-    plot([p(:, 1); p(1, 1)], [p(:, 2); p(1, 2)], 'ro-', 'MarkerFaceColor', 'r');  % Poligono di controllo
+    plot([p(:, 1); p(1, 1)], [p(:, 2); p(1, 2)], 'ro-', 'MarkerFaceColor', 'r');  % Control polygon
     xlabel('x');
     ylabel('y');
     grid on;
