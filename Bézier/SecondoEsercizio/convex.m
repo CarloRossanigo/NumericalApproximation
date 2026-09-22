@@ -1,15 +1,14 @@
 function h=convex(P);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   funzione h=convex(P)
-%%   Verifica convessità della curva di Bèzier
+%%   Function h=convex(P)
+%%   Check convexity of the Bézier curve
 %%
-%%   Input  : P matrice punti di controllo
+%%   Input  : P control points matrix
 %%
-%%   Output : h approssimazione della convessità della curva
+%%   Output : h approximation of the curve convexity
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
 X=P(:,1)';Y=P(:,2)';
 n=size(X,2);h=0.;tol=1.e-06;
 for k=2:n-1
