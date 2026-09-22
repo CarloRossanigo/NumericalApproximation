@@ -1,16 +1,16 @@
 function p = CAGD_casteljau(t, P)
-    % Funzione di De Casteljau per calcolare un punto su una curva di Bézier
+    % De Casteljau function to compute a point on a Bézier curve
     % Input:
-    %   t - Parametro t (tra 0 e 1) per calcolare il punto sulla curva
-    %   P - Matrice di punti di controllo (m+1, 2)
+    %   t - Parameter t (between 0 and 1) for computing the point on the curve
+    %   P - Control-point matrix (m+1, 2)
     % Output:
-    %   p - Punto sulla curva di Bézier corrispondente al parametro t
+    %   p - Point on the Bézier curve corresponding to parameter t
     
-    m = size(P, 1) - 1;  % Grado della curva (m è il numero di punti di controllo - 1)
-    x = P(:, 1);         % Coordinata x dei punti di controllo
-    y = P(:, 2);         % Coordinata y dei punti di controllo
+    m = size(P, 1) - 1;  % Degree of the curve (m is the number of control points minus 1)
+    x = P(:, 1);         % x-coordinate of the control points
+    y = P(:, 2);         % y-coordinate of the control points
     
-    % Iterazione per calcolare i punti intermedi
+    % Iterate to compute the intermediate points
     for k = 1:m
         xx=x;
         yy=y;
@@ -21,6 +21,6 @@ function p = CAGD_casteljau(t, P)
         end
     end
     
-    % Il punto finale è l'ultimo calcolato
+    % The final point is the last one computed
     p = [x(m+1), y(m+1)];
 end
