@@ -1,17 +1,19 @@
-%%Bézier generico
-% Numero di punti di controllo:m+1 punti
+%% Generic Bézier Curve
+% Number of control points: m+1 points
 clear all;
 close all;
 m = 6; 
-C1=0; %%m casuale?->1 random,0 no
-C2=0; %punti di controllo casuali: 1->random, 0 no
-C3=0; % disposizione dei punti random:1->random,0 no
-C4=0; %curva chiusa? 1->si,0 no
+C1=0; %% Random m? -> 1 = random, 0 = no
+C2=0; % Random control points: 1 -> random, 0 = no
+C3=0; % Random point arrangement: 1 -> random, 0 = no
+C4=0; % Closed curve? 1 -> yes, 0 = no
+
 if(C1==1)
-% Genera un numero casuale di punti di controllo m
-m = randi([1, 20]);  % Numero casuale di punti di controllo tra 1 e 20
-C2=1; % se m è random genero anche i punti random
+% Generate a random number of control points m
+m = randi([1, 20]);  % Random number of control points between 1 and 20
+C2=1; % If m is random, generate random points as well
 end
+
 P = [2, 8;   % P0
      1, 0;   % P1
      3, 4;   % P2
@@ -21,62 +23,66 @@ P = [2, 8;   % P0
      9, 0;   % P6
      0, 1;   % P7
      ];
+
 if(C2==1)
-% Genera m+1 punti di controllo casuali
-P = rand(m+1, 2) * 10;  % Punti di controllo casuali nell'intervallo [0, 10]
-C3=0; % i punti sono generati random->la loro disposizione è gia random
+% Generate m+1 random control points
+P = rand(m+1, 2) * 10;  % Random control points in the range [0, 10]
+C3=0; % Points are randomly generated -> their arrangement is already random
 end
-% Visualizza i punti di controllo
-%fprintf('Numero di punti di controllo: %d\n', m+1);
-%fprintf('Punti di controllo generati:');
+
+% Display control points
+%fprintf('Number of control points: %d\n', m+1);
+%fprintf('Generated control points:');
 %disp(P);
+
 if(C3==1)
-% Mescolare casualmente l'ordine dei punti
+% Randomly shuffle the point order
 P = P(randperm(size(P, 1)), :);
 
-% Visualizza i punti di controllo mescolati
-%fprintf('Punti di controllo mescolati:');
+% Display shuffled control points
+%fprintf('Shuffled control points:');
 end
 %disp(P);
+
 if(C4==1)
     P(end,1)=P(1,1);
     P(end,2)=P(1,2);
-   % fprintf('Curva chiusa:');
+   % fprintf('Closed curve:');
     %display(P);
-
 end
 
-n = 100;  % Numero di punti da calcolare sulla curva
-t = linspace(0, 1, n);  % Vettore dei parametri t
-B = zeros(n, 2);  % Matrice per memorizzare i punti della curva
+n = 100;  % Number of points to calculate on the curve
+t = linspace(0, 1, n);  % Parameter vector t
+B = zeros(n, 2);  % Matrix to store the curve points
 
-% Ciclo per calcolare la curva di Bézier
+% Loop to calculate the Bézier curve
 for i = 1:n
     t_i = t(i);
-    B_i = [0, 0];  % Punto della curva inizialmente a [0,0]
-    
-    % Somma pesata dei punti di controllo
+    B_i = [0, 0];  % Curve point initially at [0,0]
+
+    % Weighted sum of control points
     for k = 0:m
         B_i = B_i + nchoosek(m, k) * (t_i^k) * ((1 - t_i)^(m - k)) * P(k+1, :);
     end
-    
-    % Memorizza il punto calcolato
+
+    % Store the calculated point
     B(i, :) = B_i;
 end
 
-% Grafico della curva di Bézier
+% Plot the Bézier curve
 subplot(2, 1, 1);
 plot(B(:, 1), B(:, 2), 'g', 'LineWidth', 2);
-title('Curva di Bézier');
+title('Bézier Curve');
 xlabel('x');
 ylabel('y');
 grid on;
 axis equal;
-% Grafico del poligono di controllo
+
+% Plot the control polygon
 subplot(2, 1, 2);
 hold on;
-plot([P(:, 1);P(1,1)], [P(:, 2);P(1,2)], 'ro-', 'MarkerFaceColor', 'r');  % Poligono di controllo
-title('Poligono di Controllo');
+plot([P(:, 1);P(1,1)], [P(:, 2);P(1,2)], 'ro-', 'MarkerFaceColor', 'r');  % Control polygon
+title('Control Polygon');
 xlabel('x');
 ylabel('y');
 grid on;
