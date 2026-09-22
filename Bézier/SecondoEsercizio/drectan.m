@@ -1,16 +1,15 @@
 function [xmin,xmax,ymin,ymax]=drectan(P);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   funzione [xmin,xmax,ymin,ymax]=drectan(P) 
+%%   Function [xmin,xmax,ymin,ymax]=drectan(P)
 %
-%%   calcolo l'inviluppo rettangolare dei punti di controllo
-%%   
-%%   Input : P matrice dei punti di controllo
+%%   Calculate the bounding rectangle of the control points
 %%
-%%   Ouput : xmin,xmax,ymin,ymax coordinate dei vertici
-%%    
+%%   Input : P control points matrix
+%%
+%%   Output : xmin,xmax,ymin,ymax vertex coordinates
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
 XP=P(:,1)';YP=P(:,2)';
 xmin=min(XP);xmax=max(XP);
 ymin=min(YP);ymax=max(YP);
