@@ -1,9 +1,9 @@
-%% Curva di Bèzier con 4 punti
+%% Bézier Curve with 4 Points
 clear all;
 close all;
-m=3; %numero di punti: m+1=4
-C1=0; %% Variabile per punti random: 1->punti random
-C2=0; %% Variabile di controllo per disposizione dei punti random:1->random
+m=3; % Number of points: m+1 = 4
+C1=0; %% Variable for random points: 1 -> random points
+C2=0; %% Control variable for random point order: 1 -> random
 if(C1==0)
 P0=[2,3];
 P1=[1,2];
@@ -12,21 +12,20 @@ P3=[0,6];
 P=[P3;P1;P2;P0];
 else
  P=rand(m+1,2)*10;
- C2=0; %I punti sono generati random, quindi hanno gia una disposizone randomica
+ C2=0; % Points are randomly generated, so they already have a random order
 end
-%fprintf('Punti di controllo generati:');
+%fprintf('Generated control points:');
 %display(P);
-n=100; %passo
+n=100; % Step size
 t=linspace(0,1,n);
 if(C2==1)
-% ordine random
+% Random order
 P = P(randperm(size(P, 1)), :);
-% Visualizza disposizione
-%fprintf('Punti di controllo mescolati:');
+% Display arrangement
+%fprintf('Shuffled control points:');
 
 end
 %display(P);
-
 
 B1=zeros(n,2);
 for i=1:n
@@ -36,15 +35,14 @@ end
 
 subplot(2,1,1)
 plot(B1(:,1),B1(:,2),'g','LineWidth',2);
-title("Curva di Bèzier");
+title("Bézier Curve");
 xlabel('x');
 ylabel('y');
 grid on;
 
-
 subplot(2,1,2)
-plot([P(:, 1);P(1,1)], [P(:, 2);P(1,2)], 'ro-', 'MarkerFaceColor', 'r');  % Poligono di controllo
-title('Poligono di Controllo');
+plot([P(:, 1);P(1,1)], [P(:, 2);P(1,2)], 'ro-', 'MarkerFaceColor', 'r');  % Control polygon
+title('Control Polygon');
 xlabel('x');
 ylabel('y');
 grid on;
