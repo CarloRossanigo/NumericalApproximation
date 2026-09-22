@@ -1,18 +1,18 @@
 function PP = CAGD_Bezier(P, t)
-    % Funzione per calcolare la curva di Bézier utilizzando l'algoritmo di Casteljau
+    % Function to compute the Bézier curve using Casteljau's algorithm
     % Input:
-    %   P - Matrice dei punti di controllo (m+1, 2)
-    %   t - Vettore di parametri t (tra 0 e 1)
+    %   P - Control-point matrix (m+1, 2)
+    %   t - Vector of parameter values t (between 0 and 1)
     % Output:
-    %   PP - Matrice con i punti calcolati sulla curva di Bézier
+    %   PP - Matrix containing the points computed on the Bézier curve
     
-    n = length(t);  % Numero di punti da calcolare sulla curva
-    PP = zeros(n, 2);  % Matrice per memorizzare i punti della curva
+    n = length(t);  % Number of points to compute on the curve
+    PP = zeros(n, 2);  % Matrix for storing the curve points
     
-    % Calcola la curva per ciascun valore di t
+    % Compute the curve for each value of t
     for k = 1:n
-        T = t(k);  % Parametro t per il punto corrente
-        PP(k, :) = CAGD_casteljau(T, P);  % Calcola il punto sulla curva usando De Casteljau
+        T = t(k);  % Parameter t for the current point
+        PP(k, :) = CAGD_casteljau(T, P);  % Compute the point on the curve using De Casteljau
   
     end
 end
