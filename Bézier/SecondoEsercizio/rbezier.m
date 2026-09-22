@@ -1,11 +1,10 @@
 function [inter,xmi,xma,ymi,yma]=rbezier(P1,P2);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   Intersezione di due curve di Bèzier
-%%   computazione dell'inviluppo rettangolare - Check dell'intersezione
+%%   Intersection of two Bézier curves
+%%   Bounding rectangle computation - Intersection check
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
 [xmin1,xmax1,ymin1,ymax1]=drectan(P1);
 [xmin2,xmax2,ymin2,ymax2]=drectan(P2);
 xmi=max(xmin1,xmin2);xma=min(xmax1,xmax2);
