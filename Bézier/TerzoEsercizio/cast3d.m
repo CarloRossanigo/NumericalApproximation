@@ -1,20 +1,19 @@
 function p=cast3d(t,P)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   function p=cast3d(t,P)
+%%   Function p=cast3d(t,P)
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%   Costruzione del punto P(t) di una curva di Bèzier usando de Castejau
-%%  P è una matrice (m+1) x 3, con i punti di controllo in 3D
+%%   Construction of point P(t) on a Bézier curve using De Casteljau's algorithm
+%%   P is a (m+1) x 3 matrix with 3D control points
 %%
-%%   Input : t  parameter value
+%%   Input : t parameter value
 %%
 %%
-%%   Ouput : x,y,z coordinates of P(t) in R^3
+%%   Output : x,y,z coordinates of P(t) in R^3
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
 m=size(P,1)-1;
 xx=P(:,1);yy=P(:,2);zz=P(:,3);
 for kk=1:m
