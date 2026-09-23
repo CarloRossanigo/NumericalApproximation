@@ -64,17 +64,18 @@ int main ()
 //    stampa(dim,t,u,0,0);
 
     h=0.01;
-    Real toll=1e-14;                                        //tolleranza per il passo adattivo di lobatto
+    Real toll=1e-14;                                        //treshold for adaptive lobatto step 
     Real r=0.5;
     unsigned long n=0;
-    for(int i=0; i<s; i++)                                 //con questo for calcolo la differenza b-bc che è quello che ci serve per calcolare l'errore ad ogni passo
+    for(int i=0; i<s; i++)                                 //This calculation for the difference b - bc is needed to calculate the error at each step
+        
     {
         bc[i]=b[i]-bc[i];
 //        test: stampa la differenza b-bc
 //        cout << "la differenza b-bc:  " << bc[i];
     }
     // newton parameters
-    Real toll_newton=1e-14;                                 //tolleranza per quando si approssima con newton i valori dei Ki
+    Real toll_newton=1e-14;                                 // treshold when approximate newton wit Ki value 
     int nitmax=20;
     valf=0;
 
@@ -88,13 +89,13 @@ int main ()
             newtonVERO_sist(effe_newton,Jeffe_newton, dim*s, K[0], &nit,toll_newton,nitmax);
         }
         Real err[dim], Err;
-        step(0, 1, bc, K[0], s, dim, err);                 //qui fa il prod matrice di bc con K cioè un prod vettore,poi pone err= h*[bc]*[K]
+        step(0, 1, bc, K[0], s, dim, err);                 //here we do bcxK=vector and then we set err=h*[bc]*[K]
         Err=h*norm_2(err,dim);
-        hnew=pow(r*toll/Err, 1.0/p)*h;                      //questa è la regola per aggiornare h
-        if(Err<=toll)                                       //questo if else fa il seguente:
-        {                                                   // se l'errore è meno della tolleranza stampa e aggiorna il passo al minimo fra hnew e T-t
+        hnew=pow(r*toll/Err, 1.0/p)*h;                      //this is the rule to update h 
+        if(Err<=toll)                                       //this if else execute the following: 
+        {                                                   //if the error is less than the treshold, prints and update the step at the minimum (hnew, T-t)
             step(u, h, b, K[0], s, dim, u);
-            t+=h;                                           //se l'errore è più della tolleranza aggiorna h ad hnew e il for continua
+            t+=h;                                           //otherwise if the error is higher than the treshold, it update h to hnew and the for cycle continue ad hnew 
             h=min(hnew,T-t);
             n++;
             stampa(dim,t,u,0,&prt);
