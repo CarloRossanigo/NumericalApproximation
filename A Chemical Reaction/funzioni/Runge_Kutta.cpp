@@ -8,10 +8,10 @@ typedef  double Real;
 using namespace std;
 void azzera(int ns, Real *A, Real *b, Real *c, Real *bc=0, int *Ind = 0);
 void calcola_c(int ns, Real *c, Real *A);
-void step(Real *v, Real h, Real *coef, Real *K, int stadi, int d, Real *y)  //v=vett che sommo, h=passo, Coef=coefficienti a, k=Ki, numero di stadi ...
+void step(Real *v, Real h, Real *coef, Real *K, int stadi, int d, Real *y)  //v=vector to sum, h=step, Coef=coefficients a, k=Ki, number of stages
 {
-    //d=dim mat, y=U(n+1). Devo però calcolare i ki con un ciclo che va da i a d con la funzione step, il valore di coefs sarà la matrice A all'i-esima riga
-    //chiamo la effe e come vettore di uscita gli do la Ki.
+    // d=matrix dimension, y=U(n+1). However, I need to calculate the ki with a loop from i to d using the step function; the value of coefs will be matrix A at the i-th row
+    // Call the effe function and as output vector I give it Ki.
     Real aux[d];
     for(int i=0;i<d;i++)
         aux[i]=0;
@@ -32,7 +32,7 @@ void azzera(int ns, Real *A, Real *b, Real *c, Real *bc, int *Ind)
 
 void calcola_c(int ns, Real *c, Real *A)
 {
-// calcolo c come somma sulle righe di A
+// Calculate c as sum over the rows of A
     for(int k=0; k<ns; k++)
     {
         Real sum=*(A+k*ns);
@@ -47,17 +47,17 @@ void calcola_c(int ns, Real *c, Real *A)
 void EE(int ns, Real *A, Real *b, Real *c, Real *bc, int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
-    // Eulero Esplicito  p =1, ns = 1;
+    // Euler Explicit  p =1, ns = 1;
     b[0]=1.0;
     calcola_c(ns,c,A);
 }
 void RK4(int ns, Real *A, Real *b, Real *c, Real *bc, int *Ind)
 {
-    azzera(ns,A,b,c,bc,Ind); //azzera tutti i valori prima di iniziare
+    azzera(ns,A,b,c,bc,Ind); //Reset all value before starting
     // Runge-Kutta 4  p =4, ns = 4;
     b[0]=b[3]=1.0/6.0;
     b[1]=b[2]=1.0/3.0;
-    *(A+4)=*(A+9)=0.5; //posizione degli elementi della matrice voluti
+    *(A+4)=*(A+9)=0.5; 
     *(A+14)=1.0;
     calcola_c(ns,c,A);
 }
@@ -81,7 +81,7 @@ void RKFEHL54(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
 // RK Fehlberg 54  p = 5, ns = 6;
-// esplicito immerso
+// immersed explicit
     b[0]=16.0/135.0;
     b[1]=0.0;
     b[2]=6656.0/12825.0;
@@ -94,21 +94,21 @@ void RKFEHL54(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
     bc[3]=2197.0/4104.0;
     bc[4]=-1.0/5.0;
     bc[5]=0.0;
-    //riga 2
+    //row 2
     *(A+6)=0.25;
-    //riga 3
+    //row 3
     *(A+12)=3.0/32.0;
     *(A+13)=9.0/32.0;
-    //riga 4
+    //row 4
     *(A+18)=1932.0/2197.0;
     *(A+19)=-7200.0/2197.0;
     *(A+20)=7296.0/2197.0;
-    //riga 5
+    //row 5
     *(A+24)=439.0/216.0;
     *(A+25)=-8.0;
     *(A+26)=3680.0/513.0;
     *(A+27)=-845.0/4104.0;
-    //riga 6
+    //row 6
     *(A+30)=-8.0/27.0;
     *(A+31)=2.0;
     *(A+32)=-3544.0/2565.0;
@@ -121,13 +121,13 @@ void RKFEHL54(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 void EEHEUN(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
-// Eulero Esplicito - Heun  p = 2, ns = 2;
-// esplicito immerso
+// Euler Explicit - Heun  p = 2, ns = 2;
+// immersed explicit
     b[0]=0.5;
     b[1]=0.5;
     bc[0]=1.0;
     bc[1]=0.0;
-    //riga 2
+    // row 2
     *(A+2)=1.0;
     calcola_c(ns,c,A);
 }
@@ -137,7 +137,7 @@ void DP87(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
 // Dormand Prince 87  p = 8, ns = 13;
-// esplicito immerso
+// immersed explicit
     b[0]=14005451.0/335480064.0;
     b[5]=-59238493.0/1068277825.0;
     b[6]=181606767.0/758867731.0;
@@ -156,39 +156,39 @@ void DP87(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
     bc[10]=53011238.0/667516719.0;
     bc[11]=2.0/45.0;
     *(A+13)=1.0/18.0;
-    //riga 3
+    //row 3
     *(A+26)=1.0/48.0;
     *(A+27)=1.0/16.0;
-    //riga 4
+    //row 4
     *(A+39)=1.0/32.0;
     *(A+41)=3.0/32.0;
-    //riga 5
+    //row 5
     *(A+52)=5.0/16.0;
     *(A+54)=-75.0/64.0;
     *(A+55)=75.0/64.0;
-    //riga 6
+    //row 6
     *(A+65)=3.0/80.0;
     *(A+68)=3.0/16.0;
     *(A+69)=3.0/20.0;
-    //riga 7
+    //row 7
     *(A+78)=29443841.0/614563906.0;
     *(A+81)=77736538.0/692538347.0;
     *(A+82)=-28693883.0/1125000000.0;
     *(A+83)=23124283.0/1800000000.0;
-    //riga 8
+    //row 8
     *(A+91)=16016141.0/946692911.0;
     *(A+94)=61564180.0/158732637.0;
     *(A+95)=22789713.0/633445777.0;
     *(A+96)=545815736.0/2771057229.0;
     *(A+97)=-180193667.0/1043307555.0;
-    //riga 9
+    //row 9
     *(A+104)=39632708.0/573591083.0;
     *(A+107)=-433636366.0/683701615.0;
     *(A+108)=-421739975.0/2616292301.0;
     *(A+109)=100302831.0/723423059.0;
     *(A+110)=790204164.0/839813087.0;
     *(A+111)=800635310.0/3783071287.0;
-    //riga 10
+    //row 10
     *(A+117)=246121993.0/1340847787.0;
     *(A+120)=-37695042795.0/15268766246.0;
     *(A+121)=-309121744.0/1061227803.0;
@@ -196,7 +196,7 @@ void DP87(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
     *(A+123)=6005943493.0/2108947869.0;
     *(A+124)=393006217.0/1396673457.0;
     *(A+125)=123872331.0/1001029789.0;
-    //riga 11
+    //row 11
     *(A+130)=-1028468189.0/846180014.0;
     *(A+133)=8478235783.0/508512852.0;
     *(A+134)=1311729495.0/1432422823.0;
@@ -205,7 +205,7 @@ void DP87(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
     *(A+137)=15336726248.0/1032824649.0;
     *(A+138)=-45442868181.0/3398467696.0;
     *(A+139)=3065993473.0/597172653.0;
-    //riga 12
+    //row 12
     *(A+143)=185892177.0/718116043.0;
     *(A+146)=-3185094517.0/667107341.0;
     *(A+147)=-477755414.0/1098053517.0;
@@ -215,7 +215,7 @@ void DP87(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
     *(A+151)=-4093664535.0/808688257.0;
     *(A+152)=3962137247.0/1805957418.0;
     *(A+153)=65686358.0/487910083.0;
-    //riga 13
+    //row 13
     *(A+156)=403863854.0/491063109.0;
     *(A+159)=-5068492393.0/434740067.0;
     *(A+160)=-411421997.0/543043805.0;
@@ -231,8 +231,8 @@ void DP87(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 void EI(int ns, Real *A, Real *b, Real *c, Real *bc, int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
-// EULERO IMPLICITO / Radau1, p = 1, ns = 1;
-// implicito DIRK
+// Euler Implicit / Radau1, p = 1, ns = 1;
+// implicit DIRK
     b[0]=1.0;
     A[0]=1.0;
     calcola_c(ns,c,A);
@@ -241,7 +241,7 @@ void CN(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
 // Crank - Nicolson p = 2, ns = 2;
-// implicito DIRK
+// implicit DIRK
     b[0]=b[1]=0.5;
     *(A+2)=*(A+3)=0.5;
     if(Ind!=0)Ind[0]=0;
@@ -250,8 +250,8 @@ void CN(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 void GAUSS1(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
-// Gauss 1   ordine p = 2, ns = 1;
-// implicito DIRK
+// Gauss 1  p = 2, ns = 1;
+// implicit DIRK
     b[0]=1;
     *A=0.5;
     calcola_c(ns,c,A);
@@ -260,7 +260,7 @@ void GAUSS2(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
 // Gauss 2   p = 4, ns = 2;
-// implicito
+// implicit
     b[0]=0.5;
     b[1]=0.5;
     *A=1.0/4.0;
@@ -273,7 +273,7 @@ void GAUSS3(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
 // Gauss 3   p = 6, ns = 3;
-// implicito
+// implicit
     b[0]=5.0/18.0;
     b[1]=4.0/9.0;
     b[2]=5.0/18.0;
@@ -292,7 +292,7 @@ void RADAU2(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
 // Radau 2   p = 3, ns = 2;
-// implicito
+// implicit
     b[0]=3.0/4.0;
     b[1]=1.0/4.0;
     *A=5.0/12.0;
@@ -305,7 +305,7 @@ void RADAU3(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
 // Radau 3   p = 5, ns = 3;
-// implicito
+// implicit
     Real s6=sqrt(6);
     b[0]=(16.0-s6)/36.0;
     b[1]=(16.0+s6)/36.0;
@@ -326,28 +326,28 @@ void RKFEHL5(int ns, Real *A, Real *b, Real *c, Real *bc,int *Ind)
 {
     azzera(ns,A,b,c,bc,Ind);
 // RK Fehlberg 5, ns = 6;
-// esplicito immerso
+// explicit immersed
     b[0]=16.0/135.0;
     b[1]=0.0;
     b[2]=6656.0/12825.0;
     b[3]=28561.0/56430.0;
     b[4]=-9.0/50.0;
     b[5]=2.0/55.0;
-    //riga 2
+    //row 2
     *(A+6)=0.25;
-    //riga 3
+    //row 3
     *(A+12)=3.0/32.0;
     *(A+13)=9.0/32.0;
-    //riga 4
+    //row 4
     *(A+18)=1932.0/2197.0;
     *(A+19)=-7200.0/2197.0;
     *(A+20)=7296.0/2197.0;
-    //riga 5
+    //row 5
     *(A+24)=439.0/216.0;
     *(A+25)=-8.0;
     *(A+26)=3680.0/513.0;
     *(A+27)=-845.0/4104.0;
-    //riga 6
+    //row 6
     *(A+30)=-8.0/27.0;
     *(A+31)=2.0;
     *(A+32)=-3544.0/2565.0;
