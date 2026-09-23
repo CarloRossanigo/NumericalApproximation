@@ -4,13 +4,13 @@
 typedef  double Real;
 using namespace std;
 void gauss(Real *A, Real x[], Real b[], int n)
-// risolve sistema lineare con eliminazione gaussiana con pivot parziale
-// n dimensione corrente della matrice e di b
+// resolution of the linear system with gauss eleimination with initial pivot
+// N=actual dimension fo the matrix and of b in Ax=B finding the pivot on the columns 
 {
     Real aux;
 //
     for (int k=0; k<n-1; k++){
-//  cerco il pivot sulla colonna
+//  finding the pivot on the columns 
         Real pivot=fabs(*(A+k*n+k));
         int ipiv=k;
         for(int kk=k+1; kk<n; kk++)
@@ -22,7 +22,7 @@ void gauss(Real *A, Real x[], Real b[], int n)
                 pivot=aux;
             }
         }
-//  scambio le righe
+//  swap the rows
         if(ipiv != k)
         {
             for(int kk=k; kk<n; kk++)
@@ -58,8 +58,8 @@ void gauss(Real *A, Real x[], Real b[], int n)
     }
 }
 void lu(Real *A, int P[], int n)
-// risolve sistema lineare con eliminazione gaussiana con pivot parziale
-// n dimensione corrente della matrice e di b
+// resolution of the linear system with gauss elimination with initial pivot  
+//  N=actual dimension fo the matrix and of b in Ax=B finding the pivot on the columns 
 {
     Real aux;
     int ia;
@@ -69,7 +69,7 @@ void lu(Real *A, int P[], int n)
     }
     for (int k=0; k<n-1; k++)
     {
-//  cerco il pivot sulla colonna
+//  finding the pivot on the columns
         Real pivot=fabs(*(A+k*n+k));
         int ipiv=k;
         for(int kk=k+1; kk<n; kk++)
@@ -81,7 +81,7 @@ void lu(Real *A, int P[], int n)
                 pivot=aux;
             }
         }
-//  scambio le righe
+//  swap the rows
         if(ipiv != k)
         {
             for(int kk=0; kk<n; kk++)
@@ -135,7 +135,7 @@ void risist(Real *A, int P[],Real x[], Real b[], int n)
 }
 
 void matmat(Real *A, Real *B, Real *Ris, int ra, int ca, int cb)
-// calcola prodotto matrice raxca per matrice rbxcb con ca=rb
+// calculation of the matrix product raxca for rbxcb 
 // A*B = Ris
 {
     for (int i=0; i<ra; i++)
@@ -153,7 +153,7 @@ void matmat(Real *A, Real *B, Real *Ris, int ra, int ca, int cb)
 }
 
 
-Real norm_2(Real v[],int n)             //norm_2 calcola la norma 2 del vettore v, n è la dimensione del vettore
+Real norm_2(Real v[],int n)             //norm_2 calculation of the norm 2 od vector v, with n as dimension of v
 {
     Real ret=0.0;
     for (int k=0; k<n; k++)
