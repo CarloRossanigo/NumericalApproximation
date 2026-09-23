@@ -6,14 +6,14 @@
 using namespace std;
 typedef double Real;
 
-// definisco le costanti A, B, C, M
+// define the constant A, B, C, M
 const Real A=7.89*pow(10,-10);
 const Real B=1.1*pow(10,7);
 const Real C=1.13*pow(10,3);
 const Real M=pow(10,6);
 
 
-//definizione del campo f dell'equazione differenziale
+//define the field F of the differential equation 
 void eqdiff_f(Real F[], Real t, Real U[]){
 
     F[0]=-A*U[0]-B*U[0]*U[2];
@@ -22,18 +22,18 @@ void eqdiff_f(Real F[], Real t, Real U[]){
 
 }
 
-//definizione dati del problema
+//define data of the problem
 void dati_iniziali(Real *t_0, Real *T, Real U_0[]){
 
-    *t_0=0.0;               //tempo iniziale intervallo
-    *T=pow(10,10);          //tempo finale intervallo 10^10...cambiare la potenza di 10 per ultima parte relazione: T=10;T=10^5;T=10^9
+    *t_0=0.0;               //initial interval time  iniziale intervallo
+    *T=pow(10,10);          //final interval time, to change for different case: T=10;T=10^5;T=10^9
 
     U_0[0]=1.76*pow(10,-3);
     U_0[1]=0.0;
     U_0[2]=0.0;
 }
 
-//Matrice Jacobiana di f
+//Jacobian matrix of F
 void jf(Real J[], Real t,Real *U){
 
     J[0]=-A-B*U[2];
