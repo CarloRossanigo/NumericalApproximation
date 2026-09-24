@@ -15,20 +15,20 @@
 */
 using namespace std;
 typedef double Real;
-// puntatori al tipo di funzioni che definiscono il problema
+// pointers to the funtion that defines the problem 
 void(*effe)(Real*, Real,Real*);
 void(*dati)(Real *,Real *,Real *);
 void(*butcher)(int, Real *,Real *,Real *,Real *, int *);
-// variabili comuni
+// common variables
 Real t,T,h;
-// dimensioni del problema
+// dimension problem 
 const int d=2;
 Real u[d];
-// dimensiono matrice e vettori Butcher
+
 const int ns=1;
 Real b[ns];
 Real c[ns];
-Real A[ns][ns];// matrice
+Real A[ns][ns];
 unsigned long valf=0;
 int main ()
 {
@@ -36,7 +36,7 @@ int main ()
     effe=eqdiff_fProb4;
     dati=dati_inizialiProb4;
 
-    // predispongo file stampa
+    // to print 
     char n_file[21]= {0};
     cout << "dammi nome file di stampa(max 20 caratteri)";
     cin >> n_file ;
@@ -44,7 +44,7 @@ int main ()
     prt.precision(14);
     cout.precision(14);
 
-    // carico coefficienti e dati iniziali
+    // loading coefficients and initial data coefficienti 
 
     butcher(ns,A[0],b,c,0,0);
     dati(&t,&T,u);
@@ -53,7 +53,7 @@ int main ()
     cin >> N;
     h=(T-t)/Real(N);
 
-//  qui inizia ciclo sul tempo
+// cycle on the time
 
     for(unsigned long n=1; n<=N; n++)
     {
@@ -72,7 +72,7 @@ int main ()
         t+=h;
          stampa(d,t,u,0,&prt);
     }
-// stampa  valore finale
+// print final value
    // stampa(d,t,u,0); // su terminale
    // stampa(d,t,u,0,&prt); //stampa su file
      cout<<"Numero Valutazioni: "<<valf<<endl;
