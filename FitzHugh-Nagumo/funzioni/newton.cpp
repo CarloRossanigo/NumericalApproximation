@@ -54,7 +54,7 @@ void newtonVERO_sist(void(*effe)(Real*,Real*),void(*Jeffe)(Real*,Real*), int n,R
     for(int j=0;j<n;j++)
         J[i][j]=0;
       }
-    // inizio ciclo di Newton
+    // Begin Newton cycle
     Real delta1=1e200;
     Real delta2=0.0;
     *nit = 0;
