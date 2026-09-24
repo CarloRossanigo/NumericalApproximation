@@ -6,7 +6,7 @@
 using namespace std;
 typedef double Real;
 
-// definisco le costanti A, B, C, M
+// define teh constants  A, B, C, M
 const Real Iapp=1.5;
 const  Real b=5.0;
 const Real c=1.0;
@@ -18,10 +18,10 @@ const Real g=0.25;
 
 
 
-//definizione dati del problema
+// Defining the problem data 
 void dati_inizialiProb4(Real *t_0, Real *T, Real *U_0){
-    *t_0=0.0;               //tempo iniziale intervallo
-    *T=200;               //tempo finale intervallo: T=200
+    *t_0=0.0;               // Initial interval time 
+    *T=200;               // Final Interval time : T=200
 
     U_0[0]=0.6;
     U_0[1]=0.0;
