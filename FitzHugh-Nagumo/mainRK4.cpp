@@ -16,20 +16,20 @@
 
 using namespace std;
 typedef double Real;
-// puntatori al tipo di funzioni che definiscono il problema
+// pointers to the fucntions that define the problem 
 void(*effe)(Real*, Real,Real*);
 void(*dati)(Real *,Real *,Real *);
 void(*butcher)(int, Real *,Real *,Real *,Real *, int *);
-// variabili comuni
+// common variables
 Real t,T,h;
-// // dimensioni del problema
+// problem dimension 
 const int d=2;
 Real u[d];
-// dimensiono matrice e vettori Butcher
+// matrix dimension and butcher vector 
 const int ns=4;
 Real b[ns];
 Real c[ns];
-Real A[ns][ns];// matrice
+Real A[ns][ns];// matrix
 unsigned long valf=0;
 int main ()
 {
@@ -37,7 +37,7 @@ int main ()
     effe=eqdiff_fProb4;
     dati=dati_inizialiProb4;
 
-    // predispongo file stampa
+    // print file
     char n_file[21]= {0};
     cout << "dammi nome file di stampa(max 20 caratteri)";
     cin >> n_file ;
@@ -45,7 +45,7 @@ int main ()
     prt.precision(14);
     cout.precision(14);
 
-    // carico coefficienti e dati iniziali
+    // loading coefficients and inital data 
 
     butcher(ns,A[0],b,c,0,0);
     dati(&t,&T,u);
@@ -54,7 +54,7 @@ int main ()
     cin >> N;
     h=(T-t)/Real(N);
 
-//  qui inizia ciclo sul tempo
+//  begin cycle on the time 
 
     for(unsigned long n=1; n<=N; n++)
     {
