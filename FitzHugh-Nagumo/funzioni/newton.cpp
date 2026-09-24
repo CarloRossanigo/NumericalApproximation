@@ -18,7 +18,7 @@ void newton_sist(void(*effe)(Real*,Real*),void(*Jeffe)(Real*,Real*), int n, Real
     Jeffe(J[0],x);
     lu(J[0],P,n);
 
-    // inizio ciclo di Newton
+    // Begin Newton cycle
     Real delta1=1e200;
     Real delta2=0.0;
     *nit = 0;
