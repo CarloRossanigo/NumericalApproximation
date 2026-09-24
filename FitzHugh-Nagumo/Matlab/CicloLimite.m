@@ -1,5 +1,5 @@
 k = load('RK4_5000');
-x = k(:,1); % tempo
+x = k(:,1); % time
 y = k(:,2); % V
 z = k(:,3); % W
 
