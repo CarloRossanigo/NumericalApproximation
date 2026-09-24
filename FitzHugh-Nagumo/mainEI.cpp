@@ -22,18 +22,18 @@ void Jf_newton(Real *J,Real *X);
 typedef double Real;
 
 
-// puntatori al tipo di funzioni che definiscono il problema
+// pointers to the functions that defines the problem 
 void(*effe)(Real*, Real, Real*);
 void(*dati)(Real *,Real *,Real *);
 void(*butcher)(int, Real *,Real *,Real *,Real *, int *);
 void(*Jf)(Real*, Real,Real*);
 Real t,T,h;
-unsigned long valf1=0;                                // variabile per il conteggio delle valutazioni di f
-const int dim=2;                                            //dimensione del problema
+unsigned long valf1=0;                                // variables to count the evaluation of f 
+const int dim=2;                                            //dimension of the problem 
 Real u[dim];
 
-// imposto la tabella di butcher
-    const int ns=1; // numero di stadi
+// set the bucther's table 
+    const int ns=1; // number of stadium 
     Real b[ns];
     Real c[ns];
     Real A[ns][ns];
@@ -41,24 +41,23 @@ Real u[dim];
 
 int main ()
 {
-   // dati del problema
+   // problem data 
     effe=eqdiff_fProb4;
     dati=dati_inizialiProb4;
     Jf=jfProb4;
 
     butcher=EI;
     butcher(ns,A[0],b,c,0,0);
-      // predispongo file stampa
+      // set the print file  
     char n_file[21]={0};
     cout << "dammi nome file di stampa(max 20 caratteri)";
     cin >> n_file ;
     ofstream prt(n_file);
    prt.precision(14);
     ofstream prt2("iterazioni");
-    //
-    //parametri e variabili Newton
-     // parametri newton
-    Real toll_newton=1e-14;                                 //questa è la tolleranza per quando approssimiamo con newton i valori dei Ki
+    
+     // newton parameters 
+    Real toll_newton=1e-14;                                 //this is teh treshold of newton approximation od Ki values 
     int nitmax=20;
     // input
     dati(&t,&T,u);
@@ -68,27 +67,27 @@ int main ()
     h=(T-t)/Real(N);
     Real x[dim]={0};
     copia(x,u,dim);
-// inizia ciclo sul tempo
+// begin cycle on the time
     unsigned long n=0;
 // stampa(dim,t,u,0,&prt);
     for(int i=0; i<ns; i++)
        {
              Real aux[dim]= {0};
-            step(u,h,A[i],K[0],i,dim,aux);//calcolo Ki=un+h*A*Kj
-            effe(K[i],t+h*c[i],aux);//memorizzo il campo f nella i-esima riga di K
+            step(u,h,A[i],K[0],i,dim,aux);//calculate Ki=un+h*A*Kj
+            effe(K[i],t+h*c[i],aux);//storing the field D in the i-row of K 
            // stampa(dim,t,u,0,&prt);
 
         }
 //stampa(dim,t,u,0,&prt);
- // inizializzo primo vettore di tentativo per Newton
+ // Initializate first vector for Newton 
 
   while(t+h<T)
     {
-       //  Costruisco K per ogni n
+       //  Building K for each n 
         for(int i=0; i<ns; i++)
         {
             int nit=0;
-            //iterazione Newton
+            // Newton iteration
             newtonVERO_sist(f_newton,Jf_newton, dim*ns, K[0], &nit,toll_newton,nitmax);
             prt2 <<nit<<endl;
         }
@@ -108,7 +107,7 @@ int main ()
 void f_newton(Real *F,Real *KK)
 {
     Real Z[dim]={0};
-    //costruisco i k
+    //building  k
     for(int i=0; i<ns; i++)
     {
         step(u,h,A[i],KK,ns,dim,Z);
@@ -117,7 +116,7 @@ void f_newton(Real *F,Real *KK)
     }
     for(int i=0; i<ns*dim; i++)
     {
-        F[i]=KK[i]-F[i]; //è la F corsivo
+        F[i]=KK[i]-F[i]; 
     }
 }
 
@@ -126,13 +125,13 @@ void Jf_newton(Real *J,Real *KK)
 {
     Real Jff[dim][dim];
     Real Z[dim]={0};
-    //ciclo sulle righe
+    //cycle on the row 
     for (int i=0; i<ns; i++)
     {
         step(u,h,A[i],KK,ns,dim,Z);
         Jf(Jff[0],t+c[i]*h,Z);
       valf1+=dim;
-        //ciclo sulle colonne
+        //cycle on the columns
         for (int j=0; j<ns; j++)
         {
             Real aij= -A[i][j]*h;
